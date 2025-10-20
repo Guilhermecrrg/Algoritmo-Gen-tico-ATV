@@ -3,16 +3,30 @@ from genetico.populacao import gerarPopulacaoInicial
 from genetico.cruzamento import crossoverOxDuplo
 import config
 
+def gerarCustoCaminhos(caminhos):
+    custoCaminhos = []
+    for i in caminhos:
+        custoCaminho = 0
+        for num, j in enumerate(i[:-1]):
+            custoCaminho += matrizCidades[j][i[num+1]]
+        custoCaminhos.append(custoCaminho)
+    return custoCaminhos
+
 populacaoInicial = 20
 
-config.matrizCidades = lerMatrizCidades("src/dados.txt")
+matrizCidades = lerMatrizCidades("src/dados.txt")
 
-matriz = gerarPopulacaoInicial(populacaoInicial, len(matrizCidades[1]))
-#print(matriz[0][:99])
+print(matrizCidades)
 
-print('Matriz1 ', matriz[0])
-print('Matriz2 ', matriz[1])
+caminhos = gerarPopulacaoInicial(populacaoInicial, len(matrizCidades[1]))
 
-filho1, filho2 = crossoverOxDuplo(matriz[0],matriz[1])
+custoCaminhos = gerarCustoCaminhos(caminhos)
+
+print(caminhos[0][:99])
+
+print('Matriz1 ', caminhos[0])
+print('Matriz2 ', caminhos[1])
+
+filho1, filho2 = crossoverOxDuplo(caminhos[0],caminhos[1])
 print('filho1 ', filho1)
 print('filho2 ', filho2)
