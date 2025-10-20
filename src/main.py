@@ -8,15 +8,16 @@ def gerarCustoCaminhos(caminhos):
     for i in caminhos:
         custoCaminho = 0
         for num, j in enumerate(i[:-1]):
-            custoCaminho += matrizCidades[j][i[num+1]]
+            if matrizCidades[j][i[num+1]] == 0:
+                custoCaminho += 9999
+            else:
+                custoCaminho += matrizCidades[j][i[num+1]]
         custoCaminhos.append(custoCaminho)
     return custoCaminhos
 
 populacaoInicial = 20
 
 matrizCidades = lerMatrizCidades("src/dados.txt")
-
-print(matrizCidades)
 
 caminhos = gerarPopulacaoInicial(populacaoInicial, len(matrizCidades[1]))
 
