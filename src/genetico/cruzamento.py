@@ -36,17 +36,7 @@ def crossoverOxDuplo(pai1, pai2):
                 pos += 1
         return filho
 
-    tentativas = 0
-    while True:
-        tentativas += 1
-        filho1 = gerarFilho(pai1, pai2)
-        filho2 = gerarFilho(pai2, pai1)
-
-        if caminhoValido(filho1) and caminhoValido(filho2):
-            break
-
-        if tentativas > 50:
-            print("Aviso: não foi possível gerar filhos válidos após 50 tentativas.")
-            break
+    filho1 = gerarFilho(pai1, pai2)
+    filho2 = gerarFilho(pai2, pai1)
 
     return filho1, filho2
