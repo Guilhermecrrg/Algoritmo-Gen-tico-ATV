@@ -1,6 +1,9 @@
 from tools.leitorDeCidades import lerMatrizCidades
+from genetico.populacao import gerarPopulacaoInicial
 
-matrizCidades = lerMatrizCidades("dados.txt")
+populacaoInicial = 20
 
-gerarPopulacaoInicial(matrizCidades)
-print(matriz[0][:10])
+matrizCidades = lerMatrizCidades("src/dados.txt")
+
+matriz = gerarPopulacaoInicial(populacaoInicial, len(matrizCidades[1]))
+print(matriz[0][:99])
