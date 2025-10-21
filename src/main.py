@@ -1,22 +1,26 @@
 from tools.leitorDeCidades import lerMatrizCidades
 from genetico.populacao import gerarPopulacaoInicial
 from genetico.cruzamento import crossoverOxDuplo
-from genetico.avaliacao import gerarCustoCaminhos
+from genetico.avaliacao import gerarCustoCaminhos,torneio
 import config
 
 populacaoInicial = 20
 
-matrizCidades = lerMatrizCidades("src/dados.txt")
-
-individuos = gerarPopulacaoInicial(populacaoInicial, len(matrizCidades[1]))
+config.matrizCidades = lerMatrizCidades("src/dados.txt")
+print(config.matrizCidades)
+individuos = gerarPopulacaoInicial(populacaoInicial, len(config.matrizCidades[1]))
 
 custoCaminhos = gerarCustoCaminhos(individuos)
+print(custoCaminhos)
 
-print(individuos[0][:99])
+pos1, pos2 = torneio(custoCaminhos)
 
-print('Matriz1 ', individuos[0])
-print('Matriz2 ', individuos[1])
+# print(individuos[0][:99])
 
-filho1, filho2 = crossoverOxDuplo(individuos[0],individuos[1])
+print('Matriz1 ', individuos[pos1])
+print('Matriz2 ', individuos[pos2])
+
+filho1, filho2 = crossoverOxDuplo(individuos[pos1],individuos[pos2])
 print('filho1 ', filho1)
 print('filho2 ', filho2)
+

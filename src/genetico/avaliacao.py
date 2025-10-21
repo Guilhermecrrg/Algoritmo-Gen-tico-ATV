@@ -1,4 +1,4 @@
-from config import matrizCidades
+import config
 import random
 
 def gerarCustoCaminhos(caminhos):
@@ -6,10 +6,10 @@ def gerarCustoCaminhos(caminhos):
     for i in caminhos:
         custoCaminho = 0
         for num, j in enumerate(i[:-1]):
-            if matrizCidades[j][i[num+1]] == 0:
+            if config.matrizCidades[j][i[num+1]] == 0:
                 custoCaminho += 9999
             else:
-                custoCaminho += matrizCidades[j][i[num+1]]
+                custoCaminho += config.matrizCidades[j][i[num+1]]
         custoCaminhos.append(1/(1+custoCaminho))
     return custoCaminhos
 
@@ -19,7 +19,7 @@ def torneio(custos, tamanho_torneio=3):
     def selecionar_um():
 
         competidores = random.sample(range(len(custos)), tamanho_torneio)
-        return min(competidores, key=lambda i: custos[i])
+        return max(competidores, key=lambda i: custos[i])
 
     pai1 = selecionar_um()
     pai2 = selecionar_um()
