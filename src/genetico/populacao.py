@@ -1,4 +1,5 @@
 import random
+import time
 
 def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
 
