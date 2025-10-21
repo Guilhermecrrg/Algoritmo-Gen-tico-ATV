@@ -2,12 +2,12 @@ import random
 
 def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
 
-    listaCidades = list(range(numCidades))  # Ex: [0, 1, 2, ..., 99]
+    listaCidades = list(range(numCidades))
     populacao = []
 
     for _ in range(tamanhoPopulacao):
         individuo = listaCidades.copy()
-        random.shuffle(individuo)  # embaralha as cidades para criar rota aleatória
+        random.shuffle(individuo) 
         populacao.append(individuo)
 
     return populacao
