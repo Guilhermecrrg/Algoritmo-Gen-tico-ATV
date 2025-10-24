@@ -1,5 +1,6 @@
 import random
-import time
+import config
+
 
 def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
 
@@ -12,3 +13,15 @@ def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
         populacao.append(individuo)
 
     return populacao
+
+
+def elitismo(custoCaminhos, numElitismo):
+
+    novaPopulacao = []
+
+    indicesOrdenados = sorted(range(len(custoCaminhos)), key=lambda i: custoCaminhos[i], reverse=True)
+    melhores = [config.individuos[i] for i in indicesOrdenados[:numElitismo]]
+
+    novaPopulacao.extend(melhores)
+
+    return novaPopulacao
