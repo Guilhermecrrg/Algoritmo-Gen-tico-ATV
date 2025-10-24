@@ -4,7 +4,12 @@ from genetico.cruzamento import crossoverOxDuplo, mutacao
 from genetico.avaliacao import gerarCustoCaminhos, torneio
 
 import config
+import time
 import matplotlib.pyplot as plt
+import csv
+from datetime import datetime
+
+inicio_execucao = time.time()
 
 # ==========================
 # CONFIGURAÇÕES DO ALGORITMO
@@ -79,9 +84,54 @@ custoFinal = gerarCustoCaminhos(config.individuos)
 melhorCustoFinal = max(custoFinal)
 melhorIndividuoFinal = config.individuos[custoFinal.index(melhorCustoFinal)]
 
+fim_execucao = time.time()
+tempo_execucao = round(fim_execucao - inicio_execucao, 3) 
+
 print("\n=== RESULTADO FINAL ===")
-print(f"Melhor custo: {melhorCustoFinal:.2f}")
+print(f"Melhor custo: {melhorCustoFinal:.5f}")
 print("Melhor rota:", melhorIndividuoFinal)
+
+# === SALVAR EM CSV ===
+
+# Nome do arquivo
+arquivo_csv = "melhores_rotas.csv"
+
+# Cabeçalhos das colunas
+cabecalhos = [
+    "DataHora",
+    "MelhorCusto",
+    "MelhorRota",
+    "TempoExecucao_s",
+    "tamPopulacaoInicial",
+    "taxaMutacao",
+    "numMaxGeracoes",
+    "numElitismo"
+]
+
+# Cria (ou adiciona) os dados no arquivo
+with open(arquivo_csv, mode="a", newline="", encoding="utf-8") as arquivo:
+    writer = csv.DictWriter(arquivo, fieldnames=cabecalhos)
+
+    # Se o arquivo estiver vazio, escreve o cabeçalho
+    if arquivo.tell() == 0:
+        writer.writeheader()
+
+    # Monta o dicionário de dados
+    linha = {
+        "DataHora": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "MelhorCusto": round(melhorCustoFinal, 5),
+        "MelhorRota": " -> ".join(map(str, melhorIndividuoFinal)),
+        "TempoExecucao_s": tempo_execucao,
+        "tamPopulacaoInicial": config.tamPopulacaoInicial,
+        "taxaMutacao": config.taxaMutacao,
+        "numMaxGeracoes": config.numMaxGeracoes,
+        "numElitismo": config.numElitismo
+    }
+
+    # Escreve a linha no CSV
+    writer.writerow(linha)
+
+print(f"\nRota salva em '{arquivo_csv}' com sucesso.")
 
 # ==========================
 # GRÁFICO DE CONVERGÊNCIA
