@@ -36,8 +36,8 @@ for geracao in range(NUM_GERACOES):
     custoCaminhos = gerarCustoCaminhos(config.individuos)
 
     # Calcula métricas da geração
-    melhorCusto = min(custoCaminhos)
-    piorCusto = max(custoCaminhos)
+    piorCusto = min(custoCaminhos)
+    melhorCusto = max(custoCaminhos)
     mediaCusto = sum(custoCaminhos) / len(custoCaminhos)
 
     melhorIndice = custoCaminhos.index(melhorCusto)
@@ -74,7 +74,7 @@ for geracao in range(NUM_GERACOES):
 # RESULTADO FINAL
 # ==========================
 custoFinal = gerarCustoCaminhos(config.individuos)
-melhorCustoFinal = min(custoFinal)
+melhorCustoFinal = max(custoFinal)
 melhorIndividuoFinal = config.individuos[custoFinal.index(melhorCustoFinal)]
 
 print("\n=== RESULTADO FINAL ===")
