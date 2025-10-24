@@ -24,23 +24,24 @@ def mutacao(taxaMutacao, num_swaps=3):
     for i in range(len(config.individuos)):
         if random.random() < taxaMutacao:
             for _ in range(num_swaps):
-                j, k = random.sample(range(len(config.individuos[i])), 2)
+                j, k = random.sample(range(1, len(config.individuos[i])), 2)
                 # swap
                 config.individuos[i][j], config.individuos[i][k] = config.individuos[i][k], config.individuos[i][j]
 
 
 def crossoverOxDuplo(pai1, pai2):
     n = len(pai1)
-    corte1, corte2 = sorted(random.sample(range(n), 2))
+    corte1, corte2 = sorted(random.sample(range(1, n), 2))
 
     def gerarFilho(paiA, paiB):
         filho = [None] * n
+        filho[0] = 0
         filho[corte1:corte2] = paiA[corte1:corte2]
         pos = corte2
         for cidade in paiB:
             if cidade not in filho:
                 if pos >= n:
-                    pos = 0
+                    pos = 1
                 filho[pos] = cidade
                 pos += 1
         return filho

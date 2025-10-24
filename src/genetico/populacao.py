@@ -3,16 +3,17 @@ import config
 
 
 def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
-
-    listaCidades = list(range(numCidades))
+    listaCidades = list(range(1, numCidades))  # cidades 1 até numCidades-1
     populacao = []
 
     for _ in range(tamanhoPopulacao):
         individuo = listaCidades.copy()
-        random.shuffle(individuo) 
+        random.shuffle(individuo)
+        individuo = [0] + individuo
         populacao.append(individuo)
 
     return populacao
+
 
 
 def elitismo(custoCaminhos, numElitismo):
