@@ -55,7 +55,7 @@ for geracao in range(NUM_GERACOES):
     piores.append(piorCusto)
     medios.append(mediaCusto)
 
-    print(f"Geração {geracao + 1}/{NUM_GERACOES} | Melhor: {melhorCusto:.5f} | Médio: {mediaCusto:.5f} | Pior: {piorCusto:.5f}")
+    print(f"Geração {geracao + 1}/{NUM_GERACOES} | Melhor: {melhorCusto:.3f} | Médio: {mediaCusto:.3f} | Pior: {piorCusto:.3f}")
 
     # Critério de parada opcional (exemplo)
     # if melhorCusto > 0.9:
@@ -88,7 +88,7 @@ fim_execucao = time.time()
 tempo_execucao = round(fim_execucao - inicio_execucao, 3) 
 
 print("\n=== RESULTADO FINAL ===")
-print(f"Melhor custo: {melhorCustoFinal:.5f}")
+print(f"Melhor custo: {melhorCustoFinal:.3f}")
 print("Melhor rota:", melhorIndividuoFinal)
 
 # === SALVAR EM CSV ===
@@ -108,27 +108,23 @@ cabecalhos = [
     "numElitismo"
 ]
 
-# Cria (ou adiciona) os dados no arquivo
 with open(arquivo_csv, mode="a", newline="", encoding="utf-8") as arquivo:
     writer = csv.DictWriter(arquivo, fieldnames=cabecalhos)
 
-    # Se o arquivo estiver vazio, escreve o cabeçalho
     if arquivo.tell() == 0:
         writer.writeheader()
 
-    # Monta o dicionário de dados
     linha = {
         "DataHora": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "MelhorCusto": round(melhorCustoFinal, 5),
-        "MelhorRota": " -> ".join(map(str, melhorIndividuoFinal)),
         "TempoExecucao_s": tempo_execucao,
         "tamPopulacaoInicial": config.tamPopulacaoInicial,
         "taxaMutacao": config.taxaMutacao,
         "numMaxGeracoes": config.numMaxGeracoes,
-        "numElitismo": config.numElitismo
+        "numElitismo": config.numElitismo,
+        "MelhorRota": " -> ".join(map(str, melhorIndividuoFinal))
     }
 
-    # Escreve a linha no CSV
     writer.writerow(linha)
 
 print(f"\nRota salva em '{arquivo_csv}' com sucesso.")

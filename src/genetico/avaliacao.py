@@ -10,7 +10,7 @@ def gerarCustoCaminhos(individuos):
                 custoIndividuo += 9999
             else:
                 custoIndividuo += config.matrizCidades[j][i[num+1]]
-        custoIndividuos.append(1/(1+custoIndividuo))
+        custoIndividuos.append(100 * 1/(1+custoIndividuo))
     return custoIndividuos
 
 def torneio(custos, tamanho_torneio=3):
