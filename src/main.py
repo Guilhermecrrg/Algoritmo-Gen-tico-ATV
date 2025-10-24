@@ -1,5 +1,5 @@
 from tools.leitorDeCidades import lerMatrizCidades
-from genetico.populacao import gerarPopulacaoInicial
+from genetico.populacao import gerarPopulacaoInicial, elitismo
 from genetico.cruzamento import crossoverOxDuplo, mutacao
 from genetico.avaliacao import gerarCustoCaminhos, torneio
 
@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 NUM_GERACOES = config.numMaxGeracoes
 TAXA_MUTACAO = config.taxaMutacao
 TAM_POP = config.tamPopulacaoInicial
+NUM_ELITISMO = config.numElitismo
 
 # ==========================
 # INICIALIZAÇÃO
@@ -56,7 +57,8 @@ for geracao in range(NUM_GERACOES):
     #     break
 
     # Gera nova população por cruzamento
-    novaPopulacao = []
+    novaPopulacao = elitismo(custoCaminhos, NUM_ELITISMO)
+
     while len(novaPopulacao) < TAM_POP:
         pos1, pos2 = torneio(custoCaminhos)
         pai1, pai2 = config.individuos[pos1], config.individuos[pos2]
