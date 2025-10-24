@@ -50,10 +50,10 @@ for geracao in range(NUM_GERACOES):
     piores.append(piorCusto)
     medios.append(mediaCusto)
 
-    print(f"Geração {geracao + 1}/{NUM_GERACOES} | Melhor: {melhorCusto:.2f} | Médio: {mediaCusto:.2f} | Pior: {piorCusto:.2f}")
+    print(f"Geração {geracao + 1}/{NUM_GERACOES} | Melhor: {melhorCusto:.5f} | Médio: {mediaCusto:.5f} | Pior: {piorCusto:.5f}")
 
     # Critério de parada opcional (exemplo)
-    # if melhorCusto < 1:
+    # if melhorCusto > 0.9:
     #     break
 
     # Gera nova população por cruzamento

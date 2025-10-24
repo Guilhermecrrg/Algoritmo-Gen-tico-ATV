@@ -20,17 +20,12 @@ def caminhoValido(rota: list) -> bool:
     return True
 
 
-def mutacao(taxaMutacao):
+def mutacao(taxaMutacao, num_swaps=3):
     for i in range(len(config.individuos)):
-        for j in range(len(config.individuos[i])):
-            r_muta = random.random()
-            if r_muta < taxaMutacao:
-                # Escolhe outra posição aleatória diferente de j
-                k = random.randint(0, len(config.individuos[i]) - 1)
-                while k == j:
-                    k = random.randint(0, len(config.individuos[i]) - 1)
-
-                # Troca as cidades de posição (swap)
+        if random.random() < taxaMutacao:
+            for _ in range(num_swaps):
+                j, k = random.sample(range(len(config.individuos[i])), 2)
+                # swap
                 config.individuos[i][j], config.individuos[i][k] = config.individuos[i][k], config.individuos[i][j]
 
 
