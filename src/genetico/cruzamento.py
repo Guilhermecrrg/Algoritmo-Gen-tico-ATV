@@ -19,18 +19,20 @@ def caminhoValido(rota: list) -> bool:
             return False
     return True
 
-def mutacao(tamanhoSegmento = 15):
-    if len(config.individuos) < tamanhoSegmento * 2:
-        raise ValueError("A lista de indivíduos é muito pequena para trocar dois segmentos de tamanho especificado.")
 
-    i = random.sample(range(len(config.individuos)))
+def mutacao(taxaMutacao):
+    for i in range(len(config.individuos)):
+        for j in range(len(config.individuos[i])):
+            r_muta = random.random()
+            if r_muta < taxaMutacao:
+                # Escolhe outra posição aleatória diferente de j
+                k = random.randint(0, len(config.individuos[i]) - 1)
+                while k == j:
+                    k = random.randint(0, len(config.individuos[i]) - 1)
 
-    comeco = random.randint(0, len(config.individuos[i]) - tamanhoSegmento * 2)  # Garantir que os segmentos não ultrapassem o limite
-    final = comeco + tamanhoSegmento
+                # Troca as cidades de posição (swap)
+                config.individuos[i][j], config.individuos[i][k] = config.individuos[i][k], config.individuos[i][j]
 
-    # Troca os dois segmentos
-    config.individuos[i][comeco:final], config.individuos[i][final:final+tamanhoSegmento] = \
-        config.individuos[i][final:final+tamanhoSegmento], config.individuos[i][comeco:final]
 
 def crossoverOxDuplo(pai1, pai2):
     n = len(pai1)
