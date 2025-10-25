@@ -87,25 +87,28 @@ melhorIndividuoFinal = config.individuos[custoFinal.index(melhorCustoFinal)]
 fim_execucao = time.time()
 tempo_execucao = round(fim_execucao - inicio_execucao, 3) 
 
+rota_str = " -> ".join(
+    ["Pizzaria" if x == 0 else f"{x}" for x in melhorIndividuoFinal]
+)
+
 print("\n=== RESULTADO FINAL ===")
 print(f"Melhor custo: {melhorCustoFinal:.3f}")
-print("Melhor rota:", melhorIndividuoFinal)
+print("Melhor rota:", rota_str)
 
-# === SALVAR EM CSV ===
-
-# Nome do arquivo
+# ==========================
+# SALVAR EM CSV
+# ==========================
 arquivo_csv = "melhores_rotas.csv"
 
-# Cabeçalhos das colunas
 cabecalhos = [
     "DataHora",
     "MelhorCusto",
-    "MelhorRota",
     "TempoExecucao_s",
     "tamPopulacaoInicial",
     "taxaMutacao",
     "numMaxGeracoes",
-    "numElitismo"
+    "numElitismo",
+    "MelhorRota"
 ]
 
 with open(arquivo_csv, mode="a", newline="", encoding="utf-8") as arquivo:
@@ -116,13 +119,13 @@ with open(arquivo_csv, mode="a", newline="", encoding="utf-8") as arquivo:
 
     linha = {
         "DataHora": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "MelhorCusto": round(melhorCustoFinal, 5),
+        "MelhorCusto": round(melhorCustoFinal, 3),
         "TempoExecucao_s": tempo_execucao,
         "tamPopulacaoInicial": config.tamPopulacaoInicial,
         "taxaMutacao": config.taxaMutacao,
         "numMaxGeracoes": config.numMaxGeracoes,
         "numElitismo": config.numElitismo,
-        "MelhorRota": " -> ".join(map(str, melhorIndividuoFinal))
+        "MelhorRota": rota_str
     }
 
     writer.writerow(linha)
