@@ -3,7 +3,7 @@ import config
 
 
 def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
-    listaCidades = list(range(1, numCidades))  # cidades 1 até numCidades-1
+    listaCidades = list(range(1, numCidades))
     populacao = []
 
     for _ in range(tamanhoPopulacao):
@@ -13,7 +13,6 @@ def gerarPopulacaoInicial(tamanhoPopulacao, numCidades):
         populacao.append(individuo)
 
     return populacao
-
 
 
 def elitismo(custoCaminhos, numElitismo):
